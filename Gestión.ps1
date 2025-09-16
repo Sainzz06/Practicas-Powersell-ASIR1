@@ -1,4 +1,4 @@
-﻿function mostrar_menu{
+﻿function mostrar_menu {
 #organización menú
 write-host "--------"
 write-host "Menú"
@@ -8,8 +8,7 @@ write-host "2.Gestión de usuarios"
 write-host "3.Gestión de servicios"
 write-host "4.Información del sistema"
 write-host "5.Ver registros de evento"
-write-host "6.Lo que quiera"
-write-host "7.Salir"
+write-host "6.Salir"
 
 }
 
@@ -42,8 +41,8 @@ $emusu = Read-Host "¿Qué quieres hacer?"
 switch ($emusu){
 1 {
 #Pedir nombre y contraseña
-$usunom = Read-Host "Nombre para el nuevo usuario"
-$usupass = Read-Host "Contraseña para el nuevo usuario"
+$usunom = Read-Host "Nombre para el nuevo usuario" 
+$usupass = Read-Host "Contraseña para el nuevo usuario" -AsSecureString
 New-LocalUser -Name $usunom -Password $usupass
 }
 
@@ -94,20 +93,10 @@ write-host "3.Información disco duro"
 write-host "4.Salir"
 $emsis = Read-Host "¿Qué quieres hacer?"
 switch ($emsis){
-1 {
-$sernom = Read-Host "Nombre del servicio"
-start-service -Name $sernom 
-}
-
-2 {
-$serbor = read-host "Servicio a detener"
-Stop-service -Name $serbor
-}
-3{
-$server = read-host "¿Qué servicio quieres ver?"
-Get-service -Name $server
-}
-4{mostrar_menu}
+ 1 { Get-CimInstance Win32_Processor | Select-Object Name, NumberOfCores, MaxClockSpeed }
+ 2 { Get-CimInstance Win32_OperatingSystem | Select-Object TotalVisibleMemorySize, FreePhysicalMemory }
+ 3 { Get-CimInstance Win32_LogicalDisk -Filter "DriveType=3" | Select-Object DeviceID, Size, FreeSpace }
+ 4 { mostrar_menu }
 }}
 
 function evento{
@@ -128,16 +117,15 @@ mostrar_menu
 }
 }}
 
-function nosequehacer{
-write-host "Sin tiempo para más"
-}
+
 
 function cerrar{
-break
+exit 
 }
 
 
 #Iniciar el menú y escoger a que función ir
+do {
 mostrar_menu
 $enmenu = Read-Host "¿Qué quieres hacer?"
 switch ($enmenu){
@@ -146,6 +134,6 @@ switch ($enmenu){
 3 { servicios}
 4 { sistema }
 5 { evento }
-6 { nosequehacer  }
-7 { cerrar }
+6 { cerrar }
 }
+} while ($true)

@@ -1,4 +1,4 @@
-﻿function mostrar_menu {
+function mostrar_menu() {
 #organización menú
 write-host "--------"
 write-host "Menú"
@@ -12,7 +12,7 @@ write-host "6.Salir"
 
 }
 
-function procesos{
+function procesos() {
 #Menú procesos
 write-host "-------------------"
 write-host "Gestión de procesos"
@@ -29,7 +29,7 @@ Stop-Process -Name $stopnom}
 3{mostrar_menu}
 }}
 
-function usuarios{
+function usuarios() {
 write-host "-------------------"
 write-host "Gestión de usuarios"
 write-host "-------------------"
@@ -57,7 +57,7 @@ Get-LocalUser
 }
 }}
 
-function servicios{
+function servicios() {
 write-host "-------------------"
 write-host "Gestión de servicios"
 write-host "-------------------"
@@ -83,7 +83,7 @@ Get-service -Name $server
 4 {mostrar_menu}
 }}
 
-function sistema{
+function sistema() {
 write-host "-------------------"
 write-host "Información del sistema"
 write-host "-------------------"
@@ -99,7 +99,7 @@ switch ($emsis){
  4 { mostrar_menu }
 }}
 
-function evento{
+function evento() {
 write-host "-------------------"
 write-host "Registros de evento"
 write-host "-------------------"
